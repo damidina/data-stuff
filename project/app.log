@@ -1,0 +1,85 @@
+2024-11-23 15:25:47,845 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:25:47,846 - __main__ - INFO - Debug mode: True
+2024-11-23 15:27:35,403 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:27:35,403 - __main__ - INFO - Debug mode: True
+2024-11-23 15:27:52,141 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:27:52,141 - __main__ - INFO - Debug mode: True
+2024-11-23 15:28:24,992 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:28:24,993 - __main__ - INFO - Debug mode: True
+2024-11-23 15:28:29,834 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:28:29,834 - __main__ - INFO - Debug mode: True
+2024-11-23 15:28:43,514 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:28:43,514 - __main__ - INFO - Debug mode: True
+2024-11-23 15:29:17,250 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:29:17,250 - __main__ - INFO - Debug mode: True
+2024-11-23 15:29:34,265 - __main__ - INFO - Starting server on port 5901
+2024-11-23 15:29:34,265 - __main__ - INFO - Debug mode: True
+2024-11-23 15:29:34,616 - __main__ - INFO - Starting server on port 5901
+2024-11-23 15:29:34,616 - __main__ - INFO - Debug mode: True
+2024-11-23 15:30:07,849 - __main__ - ERROR - Error in attempt 1: name 'agent_configs' is not defined
+2024-11-23 15:30:07,851 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 103, in analyze
+    config=agent_configs["data_specialist"]
+           ^^^^^^^^^^^^^
+NameError: name 'agent_configs' is not defined
+
+2024-11-23 15:30:08,857 - __main__ - ERROR - Error in attempt 2: name 'agent_configs' is not defined
+2024-11-23 15:30:08,857 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 103, in analyze
+    config=agent_configs["data_specialist"]
+           ^^^^^^^^^^^^^
+NameError: name 'agent_configs' is not defined
+
+2024-11-23 15:30:09,860 - __main__ - ERROR - Error in attempt 3: name 'agent_configs' is not defined
+2024-11-23 15:30:09,861 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 103, in analyze
+    config=agent_configs["data_specialist"]
+           ^^^^^^^^^^^^^
+NameError: name 'agent_configs' is not defined
+
+2024-11-23 15:31:24,429 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:31:24,429 - __main__ - INFO - Debug mode: True
+2024-11-23 15:31:27,910 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:31:27,910 - __main__ - INFO - Debug mode: True
+2024-11-23 15:31:32,401 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:31:32,401 - __main__ - INFO - Debug mode: True
+2024-11-23 15:31:45,956 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:31:45,956 - __main__ - INFO - Debug mode: True
+2024-11-23 15:32:30,498 - __main__ - INFO - Starting server on port 5101
+2024-11-23 15:32:30,498 - __main__ - INFO - Debug mode: True
+2024-11-23 15:32:44,119 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:32:44,119 - __main__ - INFO - Debug mode: True
+2024-11-23 15:32:44,604 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:32:44,604 - __main__ - INFO - Debug mode: True
+2024-11-23 15:32:52,327 - __main__ - INFO - Processing request at 2024-11-23 15:32:52.327451
+2024-11-23 15:32:52,327 - __main__ - INFO - Input data: data = { "sales": [120, 150, 80, 200, 90], "customer_feedback": ["great", "poor", "great", "medium",...
+2024-11-23 15:32:52,346 - __main__ - ERROR - Error in attempt 1: 'AgentConfig' object is not subscriptable
+2024-11-23 15:32:52,348 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 91, in analyze
+    data_specialist = DataSpecialist(
+                      ^^^^^^^^^^^^^^^
+  File "/Users/damidina/Desktop/test2/project/agents/data_specialist.py", line 15, in __init__
+    self.system_prompt = config['system_prompt']
+                         ~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'AgentConfig' object is not subscriptable
+
+2024-11-23 15:32:53,359 - __main__ - ERROR - Error in attempt 2: 'AgentConfig' object is not subscriptable
+2024-11-23 15:32:53,359 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 91, in analyze
+    data_specialist = DataSpecialist(
+                      ^^^^^^^^^^^^^^^
+  File "/Users/damidina/Desktop/test2/project/agents/data_specialist.py", line 15, in __init__
+    self.system_prompt = config['system_prompt']
+                         ~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'AgentConfig' object is not subscriptable
+
+2024-11-23 15:32:54,368 - __main__ - ERROR - Error in attempt 3: 'AgentConfig' object is not subscriptable
+2024-11-23 15:32:54,368 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 91, in analyze
+    data_specialist = DataSpecialist(
+                      ^^^^^^^^^^^^^^^
+  File "/Users/damidina/Desktop/test2/project/agents/data_specialist.py", line 15, in __init__
+    self.system_prompt = config['system_prompt']
+                         ~~~~~~^^^^^^^^^^^^^^^^^
+TypeError: 'AgentConfig' object is not subscriptable
+

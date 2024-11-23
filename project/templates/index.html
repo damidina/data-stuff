@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Agents Analysis Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+        
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #10B981;
+            --error-color: #EF4444;
+            --background-color: #F9FAFB;
+            --card-background: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .agent-window {
+            height: calc(100vh - 280px);
+            overflow-y: auto;
+            background: var(--card-background);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .message {
+            margin: 12px;
+            padding: 16px;
+            border-radius: 8px;
+            max-width: 90%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .data-specialist-message {
+            background-color: #EEF2FF;
+            border-left: 4px solid var(--primary-color);
+            margin-right: auto;
+        }
+
+        .report-generator-message {
+            background-color: #ECFDF5;
+            border-left: 4px solid var(--secondary-color);
+            margin-left: auto;
+        }
+
+        .user-message {
+            background-color: #F3F4F6;
+            border-left: 4px solid #6B7280;
+        }
+
+        .metrics-card {
+            background: var(--card-background);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .conversation-line {
+            position: absolute;
+            left: 50%;
+            height: 100%;
+            width: 2px;
+            background: #E5E7EB;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">AI Agents Analysis Dashboard</h1>
+            <div class="flex items-center gap-4">
+                <div class="metrics-card">
+                    <div class="text-sm text-gray-500">System Status</div>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-green-500 pulse"></div>
+                        <span class="font-semibold">Healthy</span>
+                    </div>
+                </div>
+                <div class="metrics-card">
+                    <div class="text-sm text-gray-500">Response Time</div>
+                    <div id="responseTime" class="font-semibold">0ms</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Dashboard -->
+        <div class="grid grid-cols-4 gap-4 mb-8">
+            <div class="metrics-card">
+                <h3 class="text-sm font-semibold text-gray-500">Conversations</h3>
+                <div class="text-2xl font-bold text-primary" id="conversationCount">0</div>
+            </div>
+            <div class="metrics-card">
+                <h3 class="text-sm font-semibold text-gray-500">Success Rate</h3>
+                <div class="text-2xl font-bold text-green-600" id="successRate">100%</div>
+            </div>
+            <div class="metrics-card">
+                <h3 class="text-sm font-semibold text-gray-500">Avg. Response Time</h3>
+                <div class="text-2xl font-bold text-blue-600" id="avgResponseTime">0ms</div>
+            </div>
+            <div class="metrics-card">
+                <h3 class="text-sm font-semibold text-gray-500">Error Rate</h3>
+                <div class="text-2xl font-bold text-red-600" id="errorRate">0%</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-2 gap-8">
+            <!-- Data Specialist Window -->
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-primary"></div>
+                    <h2 class="text-lg font-semibold">Data Specialist</h2>
+                </div>
+                <div id="data-specialist-window" class="agent-window"></div>
+            </div>
+
+            <!-- Report Generator Window -->
+            <div class="bg-white rounded-lg shadow-lg p-4">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-secondary"></div>
+                    <h2 class="text-lg font-semibold">Report Generator</h2>
+                </div>
+                <div id="report-generator-window" class="agent-window"></div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4">
+            <div class="container mx-auto max-w-6xl">
+                <div class="flex gap-4">
+                    <textarea 
+                        id="userInput" 
+                        class="flex-1 p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                        placeholder="Enter your data or question here..."
+                        rows="3"
+                    ></textarea>
+                    <button 
+                        onclick="submitInput()"
+                        class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+                    >
+                        Analyze
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loading" class="loading-indicator">
+            <div class="flex items-center gap-3">
+                <svg class="animate-spin h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Processing your request...</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Global state management
+        const state = {
+            conversationCount: 0,
+            successCount: 0,
+            totalResponseTime: 0,
+            errors: 0,
+            startTime: null,
+            metrics: {
+                responseTime: [],
+                errorRates: [],
+                successRates: []
+            }
+        };
+    
+        // Initialize Charts
+        const metricsChart = new Chart(
+            document.getElementById('metricsChart')?.getContext('2d') || null,
+            {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Response Time (ms)',
+                        data: [],
+                        borderColor: '#4F46E5',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        duration: 1000
+                    }
+                }
+            }
+        );
+    
+        // Utility Functions
+        function updateMetrics(responseTime, isError = false) {
+            state.conversationCount++;
+            state.totalResponseTime += responseTime;
+            if (isError) state.errors++;
+            else state.successCount++;
+    
+            // Update display
+            document.getElementById('conversationCount').textContent = state.conversationCount;
+            document.getElementById('successRate').textContent = 
+                `${((state.successCount / state.conversationCount) * 100).toFixed(1)}%`;
+            document.getElementById('avgResponseTime').textContent = 
+                `${(state.totalResponseTime / state.conversationCount).toFixed(0)}ms`;
+            document.getElementById('errorRate').textContent = 
+                `${((state.errors / state.conversationCount) * 100).toFixed(1)}%`;
+    
+            // Update charts
+            updateCharts(responseTime, isError);
+        }
+    
+        function updateCharts(responseTime, isError) {
+            const timestamp = new Date().toLocaleTimeString();
+            
+            state.metrics.responseTime.push(responseTime);
+            state.metrics.errorRates.push(isError ? 1 : 0);
+            state.metrics.successRates.push(isError ? 0 : 1);
+    
+            if (metricsChart) {
+                metricsChart.data.labels.push(timestamp);
+                metricsChart.data.datasets[0].data.push(responseTime);
+                
+                // Keep only last 10 data points
+                if (metricsChart.data.labels.length > 10) {
+                    metricsChart.data.labels.shift();
+                    metricsChart.data.datasets[0].data.shift();
+                }
+                
+                metricsChart.update();
+            }
+        }
+    
+        function addMessage(windowId, content, role) {
+            const window = document.getElementById(windowId);
+            const messageDiv = document.createElement('div');
+            
+            // Determine message class based on role
+            const messageClass = role === 'Data Specialist' ? 'data-specialist-message' : 
+                               role === 'Report Generator' ? 'report-generator-message' : 
+                               'user-message';
+    
+            messageDiv.className = `message ${messageClass} animate__animated animate__fadeInUp`;
+            
+            // Add timestamp
+            const timestamp = new Date().toLocaleTimeString();
+            const header = `<div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-sm">${role}</span>
+                <span class="text-xs text-gray-500">${timestamp}</span>
+            </div>`;
+    
+            // Format content based on type
+            let formattedContent = content;
+            if (typeof content === 'object') {
+                formattedContent = `<pre class="code-font text-sm overflow-x-auto">${JSON.stringify(content, null, 2)}</pre>`;
+            } else if (role === 'Report Generator') {
+                formattedContent = marked.parse(content);
+            }
+    
+            messageDiv.innerHTML = `${header}<div class="message-content">${formattedContent}</div>`;
+            window.appendChild(messageDiv);
+            window.scrollTop = window.scrollHeight;
+    
+            // Add connection line animation
+            if (role !== 'user') {
+                const line = document.createElement('div');
+                line.className = 'conversation-line animate__animated animate__fadeIn';
+                messageDiv.appendChild(line);
+            }
+        }
+    
+        async function submitInput() {
+            const input = document.getElementById('userInput');
+            const loading = document.getElementById('loading');
+            const data = input.value.trim();
+    
+            if (!data) return;
+    
+            // Start timing
+            state.startTime = performance.now();
+            
+            // Show loading state
+            loading.style.display = 'block';
+            
+            // Add user message to both windows
+            addMessage('data-specialist-window', data, 'user');
+            addMessage('report-generator-window', data, 'user');
+    
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ input: data })
+                });
+    
+                const result = await response.json();
+                
+                // Calculate response time
+                const responseTime = performance.now() - state.startTime;
+                
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+    
+                // Add conversation messages with delays for visual effect
+                if (result.conversation) {
+                    for (let i = 0; i < result.conversation.length; i++) {
+                        const message = result.conversation[i];
+                        await new Promise(resolve => setTimeout(resolve, 500)); // Delay between messages
+                        
+                        if (message.role === 'Data Specialist') {
+                            addMessage('data-specialist-window', message.content, message.role);
+                        } else {
+                            addMessage('report-generator-window', message.content, message.role);
+                        }
+                    }
+                }
+    
+                // Update metrics
+                updateMetrics(responseTime);
+                
+                // Clear input
+                input.value = '';
+                
+                // Show success notification
+                showNotification('Analysis completed successfully', 'success');
+    
+            } catch (error) {
+                console.error('Error:', error);
+                updateMetrics(performance.now() - state.startTime, true);
+                showNotification(error.message, 'error');
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+    
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg animate__animated animate__fadeIn ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } text-white`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.replace('animate__fadeIn', 'animate__fadeOut');
+                setTimeout(() => notification.remove(), 1000);
+            }, 3000);
+        }
+    
+        // Handle keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                submitInput();
+            }
+        });
+    
+        // Initialize auto-expand for textarea
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.getElementById('userInput');
+            
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+            });
+    
+            // Initialize system status check
+            setInterval(checkSystemStatus, 30000); // Check every 30 seconds
+        });
+    
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                const statusIndicator = document.querySelector('.pulse');
+                if (data.status === 'healthy') {
+                    statusIndicator.classList.replace('bg-red-500', 'bg-green-500');
+                } else {
+                    statusIndicator.classList.replace('bg-green-500', 'bg-red-500');
+                }
+            } catch (error) {
+                console.error('Health check failed:', error);
+            }
+        }
+    
+        // Add real-time response time tracking
+        let responseTimeInterval = setInterval(() => {
+            if (state.startTime) {
+                const currentTime = performance.now() - state.startTime;
+                document.getElementById('responseTime').textContent = `${currentTime.toFixed(0)}ms`;
+            }
+        }, 100);
+    
+        // Initialize tooltips and popovers
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+    </script>
+</body>
+</html>
