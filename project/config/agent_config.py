@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 from dotenv import load_dotenv
 import os
+from .prompts import DATA_SPECIALIST_PROMPT, REPORT_GENERATOR_PROMPT
 
 # Load environment variables
 load_dotenv()
@@ -20,7 +21,7 @@ def get_agent_configs():
         "data_specialist": AgentConfig(
             name="Data Specialist",
             description="Analyzes patterns and correlations in data",
-            system_prompt=os.getenv('DATA_SPECIALIST_PROMPT', 'Default Data Specialist prompt'),
+            system_prompt=DATA_SPECIALIST_PROMPT,
             temperature=0.3,
             max_tokens=1500,
             tools=[{
@@ -38,7 +39,7 @@ def get_agent_configs():
         "report_generator": AgentConfig(
             name="Report Generator",
             description="Creates structured reports from analysis",
-            system_prompt=os.getenv('REPORT_GENERATOR_PROMPT', 'Default Report Generator prompt'),
+            system_prompt=REPORT_GENERATOR_PROMPT,
             temperature=0.7,
             max_tokens=2000
         )

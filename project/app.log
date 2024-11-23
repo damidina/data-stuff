@@ -83,3 +83,72 @@ TypeError: 'AgentConfig' object is not subscriptable
                          ~~~~~~^^^^^^^^^^^^^^^^^
 TypeError: 'AgentConfig' object is not subscriptable
 
+2024-11-23 15:35:47,358 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:35:47,359 - __main__ - INFO - Debug mode: True
+2024-11-23 15:35:50,825 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:35:50,825 - __main__ - INFO - Debug mode: True
+2024-11-23 15:35:52,278 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:35:52,278 - __main__ - INFO - Debug mode: True
+2024-11-23 15:35:55,762 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:35:55,763 - __main__ - INFO - Debug mode: True
+2024-11-23 15:35:59,225 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:35:59,225 - __main__ - INFO - Debug mode: True
+2024-11-23 15:36:02,685 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:36:02,685 - __main__ - INFO - Debug mode: True
+2024-11-23 15:36:08,253 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:36:08,253 - __main__ - INFO - Debug mode: True
+2024-11-23 15:36:10,790 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:36:10,791 - __main__ - INFO - Debug mode: True
+2024-11-23 15:36:28,992 - __main__ - INFO - Starting server on port 5932
+2024-11-23 15:36:28,992 - __main__ - INFO - Debug mode: True
+2024-11-23 15:37:07,762 - __main__ - INFO - Starting server on port 5952
+2024-11-23 15:37:07,762 - __main__ - INFO - Debug mode: True
+2024-11-23 15:37:08,166 - __main__ - INFO - Starting server on port 5952
+2024-11-23 15:37:08,166 - __main__ - INFO - Debug mode: True
+2024-11-23 15:37:42,604 - __main__ - INFO - Processing request at 2024-11-23 15:37:42.604459
+2024-11-23 15:37:42,604 - __main__ - INFO - Input data: data = { "sales": [120, 150, 80, 200, 90], "customer_feedback": ["great", "poor", "great", "medium",...
+2024-11-23 15:37:42,833 - __main__ - INFO - Analysis completed at 2024-11-23 15:37:42.833637
+2024-11-23 15:37:42,833 - __main__ - ERROR - Error in attempt 1: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages: Unexpected role "system". The Messages API accepts a top-level `system` parameter, not "system" as an input message role.'}}
+2024-11-23 15:37:42,834 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 105, in analyze
+    raise Exception(analysis_result['error'])
+Exception: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages: Unexpected role "system". The Messages API accepts a top-level `system` parameter, not "system" as an input message role.'}}
+
+2024-11-23 15:37:43,932 - __main__ - INFO - Analysis completed at 2024-11-23 15:37:43.932500
+2024-11-23 15:37:43,932 - __main__ - ERROR - Error in attempt 2: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages: Unexpected role "system". The Messages API accepts a top-level `system` parameter, not "system" as an input message role.'}}
+2024-11-23 15:37:43,932 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 105, in analyze
+    raise Exception(analysis_result['error'])
+Exception: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages: Unexpected role "system". The Messages API accepts a top-level `system` parameter, not "system" as an input message role.'}}
+
+2024-11-23 15:37:45,026 - __main__ - INFO - Analysis completed at 2024-11-23 15:37:45.026528
+2024-11-23 15:37:45,026 - __main__ - ERROR - Error in attempt 3: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages: Unexpected role "system". The Messages API accepts a top-level `system` parameter, not "system" as an input message role.'}}
+2024-11-23 15:37:45,026 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/damidina/Desktop/test2/project/main.py", line 105, in analyze
+    raise Exception(analysis_result['error'])
+Exception: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'messages: Unexpected role "system". The Messages API accepts a top-level `system` parameter, not "system" as an input message role.'}}
+
+2024-11-23 15:38:47,923 - __main__ - INFO - Starting server on port 5952
+2024-11-23 15:38:47,923 - __main__ - INFO - Debug mode: True
+2024-11-23 15:38:56,433 - __main__ - INFO - Starting server on port 5952
+2024-11-23 15:38:56,433 - __main__ - INFO - Debug mode: True
+2024-11-23 15:39:04,928 - __main__ - INFO - Starting server on port 5952
+2024-11-23 15:39:04,928 - __main__ - INFO - Debug mode: True
+2024-11-23 15:39:24,695 - __main__ - INFO - Starting server on port 3252
+2024-11-23 15:39:24,695 - __main__ - INFO - Debug mode: True
+2024-11-23 15:39:25,047 - __main__ - INFO - Starting server on port 3252
+2024-11-23 15:39:25,047 - __main__ - INFO - Debug mode: True
+2024-11-23 15:39:34,925 - __main__ - INFO - Processing request at 2024-11-23 15:39:34.925696
+2024-11-23 15:39:34,926 - __main__ - INFO - Input data: data = { "sales": [120, 150, 80, 200, 90], "customer_feedback": ["great", "poor", "great", "medium",...
+2024-11-23 15:39:40,937 - __main__ - INFO - Analysis completed at 2024-11-23 15:39:40.937638
+2024-11-23 15:40:00,131 - __main__ - INFO - Report generated at 2024-11-23 15:40:00.131085
+2024-11-23 15:41:47,416 - __main__ - INFO - Starting server on port 3252
+2024-11-23 15:41:47,417 - __main__ - INFO - Debug mode: True
+2024-11-23 15:41:49,872 - __main__ - INFO - Processing request at 2024-11-23 15:41:49.872095
+2024-11-23 15:41:49,872 - __main__ - INFO - Input data: data = { "sales": [120, 150, 80, 200, 90], "customer_feedback": ["great", "poor", "great", "medium",...
+2024-11-23 15:41:56,140 - __main__ - INFO - Analysis completed at 2024-11-23 15:41:56.140936
+2024-11-23 15:42:11,083 - __main__ - INFO - Report generated at 2024-11-23 15:42:11.083449
+2024-11-23 15:42:48,237 - __main__ - INFO - Processing request at 2024-11-23 15:42:48.237776
+2024-11-23 15:42:48,238 - __main__ - INFO - Input data: data = { "sales": [120, 150, 80, 200, 90], "customer_feedback": ["great", "poor", "great", "medium",...
+2024-11-23 15:42:54,202 - __main__ - INFO - Analysis completed at 2024-11-23 15:42:54.202468
+2024-11-23 15:43:08,196 - __main__ - INFO - Report generated at 2024-11-23 15:43:08.196274
